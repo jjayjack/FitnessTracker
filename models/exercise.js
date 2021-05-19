@@ -16,6 +16,18 @@ const exerciseSchema = new Schema({
     type: Number,
     required: "Enter amount of time",
   },
+  endurance: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Endurance"
+    }
+  ],
+  strength: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Strength"
+    }
+  ]
 });
 
 const Exercise = mongoose.model("Exercise", exerciseSchema);

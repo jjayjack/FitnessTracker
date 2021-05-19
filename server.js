@@ -32,6 +32,10 @@ app.get('/exercise', (req, res) => {
   })
 })
 
+app.get('/exercise?', (req, res) => {
+  res.render('/exercise');
+})
+
 // routes
 app.use(require("./routes/api.js"));
 
