@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const enduranceSchema = new Schema({
   distance: {
       type: Number,
-      required: "Enter the weight used for the exercise"
+      required: "Enter the distance traveled during the exercise"
   }
 });
 

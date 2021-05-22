@@ -2,18 +2,23 @@ const router = require("express").Router();
 
 const Endurance = require("../models/endurance.js");
 const Strength = require ("../models/strength.js");
-const Exercise = require("../models/exercise.js");
+const Workout = require("../models/workout.js");
 
 
-router.get("/api/workouts", (req,res) =>{
-  console.log("last exercise button pressed");
-  res.render('public/exercise.html')
-})
+router.get("/api/workouts", (req, res) => {
+  Workout.find({})
+    .sort({ date: -1 })
+    .then(workout => {
+      res.json(workout);
+    })
+    .catch(err => {
+      res.status(400).json(err);
+    });
+});
 
-router.get("/exercise", (req, res) => {
-  console.log("exercise?");
-    res.render('public/exercise.html')
-  })
+
+
+
 
 
 module.exports = router;
