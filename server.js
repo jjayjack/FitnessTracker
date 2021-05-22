@@ -4,7 +4,6 @@ const mongojs = require("mongojs");
 
 const PORT = process.env.PORT || 3000
 
-const Workout = require('./models/exercise.js')
 const app = express();
 
 const databaseUrl = "workout";
@@ -15,26 +14,12 @@ const db = mongojs(databaseUrl, collections);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
+app.use(express.static("public", {extensions:['html']}));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutDB", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
-
-app.get('/exercise', (req, res) => {
-  db.exercise.find({}, (err, found) => {
-    if (err){
-      console.log(err);
-    } else {
-      res.json(found);
-    }
-  })
-})
-
-app.get('/exercise?', (req, res) => {
-  res.render('/exercise');
-})
 
 // routes
 app.use(require("./routes/api.js"));
