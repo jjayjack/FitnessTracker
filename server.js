@@ -15,6 +15,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useNewUrlParser: true
 });
 
+mongoose.set('toJSON', { virtuals: true});
+
 // routes
 app.use(require("./routes/api.js"));
 
