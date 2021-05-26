@@ -26,8 +26,7 @@ router.get('/api/workouts/range', (req, res) => {
 })
 
 router.post('/api/workouts/', (req, res) => {
-  // Workout.findOneAndUpdate({},
-  Workout.create({},
+  Workout.findOneAndUpdate({},
     {
       $set:{}
     }).then(newWorkout => {
