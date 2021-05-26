@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const mongojs = require("mongojs");
-
 const Workout = require("../models/workout");
 
 
 
-router.get("/api/workouts", (req, res) => {
+router.get('/api/workouts', (req, res) => {
   Workout.find({})
     .then(workout => {
       res.json(workout);
@@ -16,35 +15,40 @@ router.get("/api/workouts", (req, res) => {
     });
 });
 
-router.post("/api/workouts", (req, res) => {
-  Workout.insertOne(req.body, (err, data) => {
-    if (err){
-      res.send(err)
-    } else{
-      
-      res.send("posted" + data);
-    }
-  })
+router.post('/api/workouts', (req, res) => {
+  Workout.findOneAndUpdate({},
+    {
+      $set:{}
+    }).then(newWorkout => {
+      console.log(newWorkout);
+        res.json(newWorkout)
+        
+      })
+      .catch(err => {
+        res.status(400).json(err);
+      })
 })
 
 router.put('/api/workouts/:id', (req, res) => {
-  Workout.findByIdAndUpdate({_id: mongojs.ObjectId(req.params.id)
+  Workout.updateOne({
+    _id: mongojs.ObjectId(req.params.id)
     },
     {
       $push: {
-        type: req.body.type,
-        name: req.body.name,
-        duration: req.body.duration,
-        weight: req.body.weight,
-        reps: req.body.reps,
-        sets: req.body.sets,
-        distance: req.body.distance
-
+        exercises: {
+          type: req.body.type,
+          name: req.body.name,
+          duration: req.body.duration,
+          weight: req.body.weight,
+          reps: req.body.reps,
+          sets: req.body.sets,
+          distance: req.body.distance
+        }
       }
     },
   ).then(dataDB => {
+    console.log(dataDB)
     res.json(dataDB)
-    console.log("data inserted: " + dataDB);
   })
   .catch(err => {
     res.status(400).json(err);
