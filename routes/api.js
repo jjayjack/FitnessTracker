@@ -15,8 +15,19 @@ router.get('/api/workouts', (req, res) => {
     });
 });
 
-router.post('/api/workouts', (req, res) => {
-  Workout.findOneAndUpdate({},
+router.get('/api/workouts/range', (req, res) => {
+  Workout.find({})
+  // want to display days, workouts
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    }).catch(err => {
+      res.status(400).json(err);
+    })
+})
+
+router.post('/api/workouts/', (req, res) => {
+  // Workout.findOneAndUpdate({},
+  Workout.create({},
     {
       $set:{}
     }).then(newWorkout => {
