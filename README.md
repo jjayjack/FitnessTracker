@@ -1,4 +1,4 @@
 # FitnessTracker
 
 ## Links
-https://git.heroku.com/fittrackerappl.git
+https://fittrackerappl.herokuapp.com/
